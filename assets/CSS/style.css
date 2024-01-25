@@ -6,8 +6,12 @@
 }
 
 .weather-icon {
-  width: 30px;
+  width: 25px;
   margin-right: 1em;
+}
+
+#current-weather-icon {
+  width: 120px;
 }
 
 .card-body {
