@@ -5,12 +5,17 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.error {
+  margin-top: 10px;
+  display: none;
+}
+
 .weather-icon {
   width: 25px;
   margin-right: 1em;
 }
 
-#current-weather-icon {
+.current-weather-icon {
   width: 120px;
 }
 
