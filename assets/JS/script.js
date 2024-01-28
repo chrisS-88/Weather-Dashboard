@@ -3,8 +3,13 @@
 $("#search-button").on("click", function (event) {
   event.preventDefault();
 
-  var userInput = $("#search-input").val();
+  // grab user input
+  var userInput = $("#search-input").val().trim();
   console.log(userInput);
+
+  // save search to local storage
+
+  localStorage.setItem("location", userInput);
 
   const weatherApiKey = "700c1c890919726aec2084f550e46b49";
   const weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput + "&appid=" + weatherApiKey + "&units=metric";
@@ -56,5 +61,3 @@ $("#search-button").on("click", function (event) {
       $(".weather").css("display", "block");
     });
 });
-
-// get api
