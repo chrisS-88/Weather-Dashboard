@@ -2,25 +2,33 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
 }
 
 :root {
-  --teal: rgb(0, 173, 181);
+  --blue: rgba(47, 175, 201, 0.851);
   --grey: rgb(57, 62, 70);
-  --white: rgb(238, 238, 238);
+  --white: rgba(238, 238, 238, 0.832);
   --black: rgb(34, 40, 49);
   --yellow: rgb(244, 206, 20);
 }
 
+body {
+  background-image: url(../images/sunrise.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 90%;
+}
+
 /* header */
 header {
-  background-image: linear-gradient(90deg, rgba(57, 62, 70, 0.762), rgba(0, 172, 181, 0.846));
+  background-color: var(--grey);
   margin-bottom: 1em;
+  border-bottom: 2px solid var(--yellow);
 }
 
 h1 {
-  color: var(--black);
+  color: var(--white);
 }
 
 /* search aside section */
@@ -31,7 +39,7 @@ h1 {
 .weather-search {
   padding: 3px;
   width: 100%;
-  border: 2px solid var(--teal);
+  border: 2px solid var(--blue);
 }
 
 #search-button {
@@ -49,7 +57,7 @@ h1 {
 .error {
   margin-top: 10px;
   display: none;
-  color: red;
+  color: var(--yellow);
 }
 
 .list-group button {
@@ -67,6 +75,10 @@ h1 {
 /* todays weather card */
 .current-weather-icon {
   width: 140px;
+  background-color: rgba(57, 62, 70, 0.154);
+  border: 2px solid var(--grey);
+  border-radius: 50%;
+  margin-bottom: 1em;
 }
 
 .card-body {
@@ -74,15 +86,22 @@ h1 {
 }
 
 .todays-card {
-  background-image: linear-gradient(270deg, rgba(57, 62, 70, 0.762), rgba(0, 172, 181, 0.846));
+  background-color: var(--white);
+  box-shadow: 0px 0px 8px 2px var(--black);
 }
 
 .card-info {
-  color: var(--yellow);
+  color: var(--black);
   font-size: 18px;
 }
 
 .city,
 .temp {
-  font-size: 40px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+/* 5 day forecast */
+.forecast-card {
+  background-color: var(--blue);
 }

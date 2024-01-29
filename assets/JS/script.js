@@ -1,3 +1,5 @@
+$(".weather").css("display", "none");
+
 $("#search-button").on("click", getWeather);
 
 function getWeather(event) {
@@ -22,7 +24,6 @@ function getWeather(event) {
     .then(function (response) {
       if (response.status === 404 || response.status === 400) {
         $(".error").css("display", "block");
-        // $(".weather").css("display", "none");
       } else {
         $(".error").css("display", "none");
         return response.json();
@@ -77,9 +78,9 @@ function getWeather(event) {
             description = weather[0].description;
 
             forecastEl.append(`
-            <div class="col-md-2 col-lg-2 mx-auto card mb-3">
+            <div class=" col-md-2 col-lg-2 mx-auto card forecast-card mb-3">
               <div class="text-start card-body p-2">
-                <h5 class="card-title">${date[0]}</h5>
+                <p class="card-title text-center">${date[0]}</p>
                 <img class="card-text" src=${iconUrl} > 
                 <p class="card-text">${description}</p>
                 <p class="card-text">Temp: ${temp} °c</p>
