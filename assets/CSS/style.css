@@ -5,20 +5,84 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+:root {
+  --teal: rgb(0, 173, 181);
+  --grey: rgb(57, 62, 70);
+  --white: rgb(238, 238, 238);
+  --black: rgb(34, 40, 49);
+  --yellow: rgb(244, 206, 20);
+}
+
+/* header */
+header {
+  background-image: linear-gradient(90deg, rgba(57, 62, 70, 0.762), rgba(0, 172, 181, 0.846));
+  margin-bottom: 1em;
+}
+
+h1 {
+  color: var(--black);
+}
+
+/* search aside section */
+#form-heading {
+  color: var(--black);
+}
+
+.weather-search {
+  padding: 3px;
+  width: 100%;
+  border: 2px solid var(--teal);
+}
+
+#search-button {
+  background-color: var(--grey);
+  width: 100%;
+  border-radius: 5px;
+}
+
+#search-button:hover {
+  background-color: var(--white);
+  color: var(--grey);
+  transition: 0.3s;
+}
+
 .error {
   margin-top: 10px;
   display: none;
+  color: red;
 }
 
-.weather-icon {
-  width: 25px;
-  margin-right: 1em;
+.list-group button {
+  font-size: 20px;
+  padding: 1em 0;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
 
+.list-group button:hover {
+  background-color: rgb(0, 173, 181);
+  transition: 0.3s;
+}
+
+/* todays weather card */
 .current-weather-icon {
-  width: 120px;
+  width: 140px;
 }
 
 .card-body {
   text-align: center;
+}
+
+.todays-card {
+  background-image: linear-gradient(270deg, rgba(57, 62, 70, 0.762), rgba(0, 172, 181, 0.846));
+}
+
+.card-info {
+  color: var(--yellow);
+  font-size: 18px;
+}
+
+.city,
+.temp {
+  font-size: 40px;
 }

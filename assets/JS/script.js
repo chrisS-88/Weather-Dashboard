@@ -1,5 +1,3 @@
-// $(".weather").css("display", "none");
-
 $("#search-button").on("click", getWeather);
 
 function getWeather(event) {
@@ -18,6 +16,7 @@ function getWeather(event) {
   // grab api for weather data
   const weatherApiKey = "700c1c890919726aec2084f550e46b49";
   const weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput + "&appid=" + weatherApiKey + "&units=metric";
+  console.log(weatherUrl);
 
   fetch(weatherUrl)
     .then(function (response) {
@@ -30,38 +29,26 @@ function getWeather(event) {
       }
     })
     .then(function (data) {
-      // console.log(data);
-
       //current weather display elements
       var cityEl = $("#location");
       var dateEl = $("#current-date");
       var tempEl = $("#temp");
       var windSpeedEl = $("#wind-speed");
       var humidityEl = $("#humidity");
+      var weatherIconEl = $(".current-weather-icon");
+      var description = $(".description");
 
+      var { weather } = data;
+
+      var iconUrl = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`;
       // target display with data
       cityEl.text(data.name);
       dateEl.text(dayjs().format("DD/MM/YYYY"));
       tempEl.text(parseInt(data.main.temp) + " °c");
       windSpeedEl.text("Wind Speed: " + data.wind.speed + " m/s");
       humidityEl.text("Humidity: " + data.main.humidity + "%");
-
-      // change image to display current weather
-      var weatherIcon = $(".current-weather-icon");
-
-      if (data.weather[0].main == "Clear") {
-        weatherIcon.attr("src", "assets/images/clear.png");
-      } else if (data.weather[0].main == "Rain") {
-        weatherIcon.attr("src", "assets/images/rain.png");
-      } else if (data.weather[0].main == "Clouds") {
-        weatherIcon.attr("src", "assets/images/clouds.png");
-      } else if (data.weather[0].main == "Mist") {
-        weatherIcon.attr("src", "assets/images/mist.png");
-      } else if (data.weather[0].main == "Snow") {
-        weatherIcon.attr("src", "assets/images/snow.png");
-      } else if (data.weather[0].main == "Drizzle") {
-        weatherIcon.attr("src", "assets/images/drizzle.png");
-      }
+      weatherIconEl.attr("src", iconUrl);
+      description.text(data.weather[0].description);
 
       $(".weather").css("display", "block");
 
@@ -77,10 +64,9 @@ function getWeather(event) {
           return response.json();
         })
         .then(function (data) {
-          // console.log(data);
           var forcastList = data.list;
 
-          for (let i = 0; i < forcastList.length; i += 8) {
+          for (let i = 7; i < forcastList.length; i += 8) {
             var { dt_txt, weather, main, wind, humidity } = forcastList[i];
             date = dt_txt.split(" ");
             var iconUrl = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`;
@@ -88,12 +74,14 @@ function getWeather(event) {
             temp = parseInt(main.temp);
             wind = wind.speed;
             humidity = main.humidity;
+            description = weather[0].description;
 
             forecastEl.append(`
             <div class="col-md-2 col-lg-2 mx-auto card mb-3">
               <div class="text-start card-body p-2">
                 <h5 class="card-title">${date[0]}</h5>
                 <img class="card-text" src=${iconUrl} > 
+                <p class="card-text">${description}</p>
                 <p class="card-text">Temp: ${temp} °c</p>
                 <p class="card-text">Wind: ${wind} m/s</p>
                 <p class="card-text">Humidity: ${humidity} %</p>
@@ -101,6 +89,9 @@ function getWeather(event) {
             `);
           }
         });
+
+      // empty previous search before appending new search
+      forecastEl.empty();
     });
 }
 
