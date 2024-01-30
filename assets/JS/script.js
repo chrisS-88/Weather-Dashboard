@@ -32,11 +32,18 @@ $(document).ready(function () {
           // clear error message and prepend city to history tab
           $(".error").css("display", "none");
 
+          // this needs to be replaced with a function that displays the working button
+          // play with this code
           var btnEl = $("<button>");
           btnEl.addClass("historyBtn");
-
           btnEl.text(userInput);
           $("#history").prepend(btnEl);
+
+          var storedResults = localStorage.getItem("location");
+          if (storedResults) {
+            existingData = JSON.parse(storedResults);
+          }
+
           // api response
           return response.json();
         }
@@ -125,7 +132,7 @@ $(document).ready(function () {
   }
 
   // save user input to local storage
-  // let existingData = [];
+
   function saveTolocalStorage(key, value) {
     if (existingData.indexOf(value) !== -1) {
       return;
@@ -142,6 +149,7 @@ $(document).ready(function () {
     }
   }
 
+  // PLAY WITH THIS CODE=================
   // get history from local storage and display on refresh
   function getHistory() {
     var storedResults = localStorage.getItem("location");
@@ -160,6 +168,7 @@ $(document).ready(function () {
       $("#history").prepend(btnEl);
     });
   }
+  // PLAY WITH THIS CODE ================
 
   getHistory();
 
