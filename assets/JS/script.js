@@ -1,9 +1,13 @@
+// hide cards until new search
 $(".weather").css("display", "none");
 
+// click event for weather info
 $("#search-button").on("click", getWeather);
 
+// main function for gathering weather data and displaying to html
 function getWeather(event) {
   event.preventDefault();
+
   // grab user input
   var userInput = $("#search-input").val().trim();
 
@@ -12,14 +16,14 @@ function getWeather(event) {
   btnEl.text(userInput);
   $("#history").prepend(btnEl);
 
-  // save search to local storage
+  // function called to save search to local storage
   saveUerInput();
 
   // grab api for weather data
   const weatherApiKey = "700c1c890919726aec2084f550e46b49";
   const weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput + "&appid=" + weatherApiKey + "&units=metric";
-  console.log(weatherUrl);
 
+  // check api response
   fetch(weatherUrl)
     .then(function (response) {
       if (response.status === 404 || response.status === 400) {
@@ -38,11 +42,10 @@ function getWeather(event) {
       var humidityEl = $("#humidity");
       var weatherIconEl = $(".current-weather-icon");
       var description = $(".description");
-
       var { weather } = data;
-
       var iconUrl = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`;
-      // target display with data
+
+      // display to card
       cityEl.text(data.name);
       dateEl.text(dayjs().format("DD/MM/YYYY"));
       tempEl.text(parseInt(data.main.temp) + " °c");
@@ -51,9 +54,11 @@ function getWeather(event) {
       weatherIconEl.attr("src", iconUrl);
       description.text(data.weather[0].description);
 
+      // unhide card after search
       $(".weather").css("display", "block");
 
-      // 5 day forecast
+      // ==============
+      // grab api & set variables for 5 day forecast
       var forecastEl = $("#forecast");
       var lat = data.coord.lat;
       var lon = data.coord.lon;
@@ -67,16 +72,19 @@ function getWeather(event) {
         .then(function (data) {
           var forcastList = data.list;
 
+          // loop through api data to get same time forcast over next 5 days
           for (let i = 7; i < forcastList.length; i += 8) {
             var { dt_txt, weather, main, wind, humidity } = forcastList[i];
             date = dt_txt.split(" ");
             var iconUrl = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`;
 
+            // set variables to append
             temp = parseInt(main.temp);
             wind = wind.speed;
             humidity = main.humidity;
             description = weather[0].description;
 
+            // append cards
             forecastEl.append(`
             <div class=" col-md-2 col-lg-2 mx-auto card forecast-card mb-3">
               <div class="text-start card-body p-2">
@@ -96,7 +104,7 @@ function getWeather(event) {
     });
 }
 
-// functions to save user input to local storage
+// save user input to local storage
 function saveTolocalStorage(key, value) {
   let existingData = JSON.parse(localStorage.getItem(key)) || [];
 

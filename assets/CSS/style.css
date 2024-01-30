@@ -6,11 +6,11 @@
 }
 
 :root {
-  --blue: rgba(47, 175, 201, 0.851);
+  --blue: rgb(47, 175, 201);
   --grey: rgb(57, 62, 70);
-  --white: rgba(238, 238, 238, 0.832);
+  --white: rgba(238, 238, 238, 0.79);
   --black: rgb(34, 40, 49);
-  --yellow: rgb(244, 206, 20);
+  --yellow: rgba(244, 207, 20, 0.671);
 }
 
 body {
@@ -68,7 +68,7 @@ h1 {
 }
 
 .list-group button:hover {
-  background-color: rgb(0, 173, 181);
+  background-color: var(--yellow);
   transition: 0.3s;
 }
 
