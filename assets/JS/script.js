@@ -1,8 +1,9 @@
 // hide cards until new search
 $(".weather").css("display", "none");
 
-// click event for weather info
+// click event for weather info and clear history
 $("#search-button").on("click", getWeather);
+$("#clear-button").on("click", clearHistory);
 
 // main function for gathering weather data and displaying to html
 function getWeather(event) {
@@ -10,11 +11,6 @@ function getWeather(event) {
 
   // grab user input
   var userInput = $("#search-input").val().trim();
-
-  // prepend search to history section
-  var btnEl = $("<button>");
-  btnEl.text(userInput);
-  $("#history").prepend(btnEl);
 
   // function called to save search to local storage
   saveUerInput();
@@ -27,9 +23,16 @@ function getWeather(event) {
   fetch(weatherUrl)
     .then(function (response) {
       if (response.status === 404 || response.status === 400) {
+        // display error message
         $(".error").css("display", "block");
       } else {
+        // clear error message and prepend city to history tab
         $(".error").css("display", "none");
+
+        var btnEl = $("<button>");
+        btnEl.text(userInput);
+        $("#history").prepend(btnEl);
+        // api response
         return response.json();
       }
     })
@@ -75,7 +78,16 @@ function getWeather(event) {
           // loop through api data to get same time forcast over next 5 days
           for (let i = 7; i < forcastList.length; i += 8) {
             var { dt_txt, weather, main, wind, humidity } = forcastList[i];
-            date = dt_txt.split(" ");
+
+            // get rid of time and reverse date
+            var dateAndTime = dt_txt.split(" ");
+            var date = dateAndTime[0];
+            var dateToString = date.toString();
+            var moddedDate = dateToString.replace(/-/g, "/");
+            var dateArr = moddedDate.split("/");
+            var reversedArr = dateArr.reverse();
+            var reversedDate = reversedArr.join("/");
+
             var iconUrl = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`;
 
             // set variables to append
@@ -88,7 +100,7 @@ function getWeather(event) {
             forecastEl.append(`
             <div class=" col-md-2 col-lg-2 mx-auto card forecast-card mb-3">
               <div class="text-start card-body p-2">
-                <p class="card-title text-center">${date[0]}</p>
+                <p class="card-title text-center">${reversedDate}</p>
                 <img class="card-text" src=${iconUrl} > 
                 <p class="card-text">${description}</p>
                 <p class="card-text">Temp: ${temp} °c</p>
@@ -123,7 +135,6 @@ function saveUerInput() {
 // get history from local storage and display on refresh
 function getHistory() {
   var storedResults = localStorage.getItem("location");
-  console.log(storedResults);
   if (storedResults !== null) {
     var items = JSON.parse(storedResults);
   }
@@ -138,3 +149,13 @@ function displayLocationHistory(items) {
   });
 }
 getHistory();
+
+// $("#history button").on("click", function () {
+//   var btnValue = localStorage.getItem("location");
+//   console.log(btnValue);
+// });
+
+// clear local storage
+function clearHistory() {
+  localStorage.clear();
+}

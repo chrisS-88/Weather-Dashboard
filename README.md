@@ -17,6 +17,8 @@ storage stores user input and provides a history tab to quickly call previousily
 - [Open Weather API](https://openweathermap.org/)
 - [Bootstrap](https://getbootstrap.com/)
 - [Day.js](https://day.js.org/en/)
+- [Photo by Federico Respini on Unsplash](https://unsplash.com/@federicorespini?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+- [Unsplash](https://unsplash.com/)
 
 ## License
 

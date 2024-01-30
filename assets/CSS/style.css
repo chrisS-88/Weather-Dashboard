@@ -6,18 +6,17 @@
 }
 
 :root {
-  --blue: rgb(47, 175, 201);
-  --grey: rgb(57, 62, 70);
-  --white: rgba(238, 238, 238, 0.79);
-  --black: rgb(34, 40, 49);
-  --yellow: rgba(244, 207, 20, 0.671);
+  --blue: rgba(47, 175, 201, 0.855);
+  --grey: rgba(57, 62, 70, 0.803);
+  --white: rgba(238, 238, 238, 0.833);
+  --black: rgba(34, 40, 49, 0.869);
+  --yellow: rgba(244, 207, 20, 0.816);
 }
 
 body {
   background-image: url(../images/sunrise.jpg);
   background-size: cover;
   background-repeat: no-repeat;
-  opacity: 90%;
 }
 
 /* header */
@@ -42,13 +41,20 @@ h1 {
   border: 2px solid var(--blue);
 }
 
-#search-button {
+#search-button,
+#clear-button {
   background-color: var(--grey);
   width: 100%;
   border-radius: 5px;
 }
 
 #search-button:hover {
+  background-color: var(--white);
+  color: var(--grey);
+  transition: 0.3s;
+}
+
+#clear-button:hover {
   background-color: var(--white);
   color: var(--grey);
   transition: 0.3s;
@@ -61,6 +67,7 @@ h1 {
 }
 
 .list-group button {
+  background-color: var(--white);
   font-size: 20px;
   padding: 1em 0;
   margin-bottom: 10px;
